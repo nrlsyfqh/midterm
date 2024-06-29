@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register - Clinic Management System</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap">
+    <style>
+        .eye-icon {
+            cursor: pointer;
+        }
+
+        .form-container {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Stack items vertically */
+            min-height: 100vh; /* Minimum height of the viewport */
+            padding: 40px; /* Adjust padding for better spacing */
+            background-image: url('background.png'); /* Background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .logo {
+            max-width: 200px; /* Adjust size as needed */
+            margin-bottom: 20px;
+        }
+
+        .content {
+            background-color: #fff;
+            box-shadow: 2px 9px 49px -17px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%; /* Ensure content fills the container */
+            max-width: 400px; /* Limit width for better readability */
+        }
+
+        .form-container h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #272346;
+            margin-bottom: 15px;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="password"],
+        .form-container input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            position: relative; /* Ensure relative positioning */
+        }
+
+        .form-container .input-container {
+            position: relative;
+        }
+
+        .form-container .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .form-container button {
+            background-color: #de9190; /* New pastel pink */
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .form-container button:hover {
+            background-color: #c3776f; /* Slightly darker pastel pink */
+        }
+
+        .form-container a {
+            color: #de9190; /* New pastel pink */
+            text-decoration: none;
+        }
+
+        .form-container a:hover {
+            text-decoration: underline;
+        }
+
+        .form-container .w3-text-red {
+            color: #de9190; /* New pastel pink */
+        }
+
+        .form-container .w3-text-blue {
+            color: #de9190; /* New pastel pink */
+        }
+
+        .w3-pastel-pink {
+            background-color: #de9190; /* New pastel pink */
+            color: white;
+        }
+
+        .clinic-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem; /* Adjust size as needed */
+            font-weight: 700;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header class="w3-container w3-center w3-pastel-pink w3-padding-32">
+    <h1 class="clinic-title">Blossom Women's Care</h1>
+    <p>Welcome to Your One Stop Health Solution</p>
+</header>
+
+<div class="w3-bar w3-pastel-pink">
+    <a href="#about" class="w3-bar-item w3-button">Home</a>
+    <a href="#services" class="w3-bar-item w3-button">Services</a>
+</div>
+
+<div class="w3-container form-container"> 
+    <div id="login" style="display: block;" class="content">
+        <img class="logo" src="clinic.png" alt="Happy Health Clinic Logo">
+        <h2>LOG IN</h2>
+        <form id="loginForm" action="login.php" method="post">
+            <input class="w3-input" type="text" name="name" id="idname" placeholder="User Name" required autocomplete="username">
+            <div class="input-container w3-margin-bottom">
+                <input class="w3-input" type="password" name="password" id="idpass" placeholder="User Password" required autocomplete="current-password">
+                <i class="fa fa-eye eye-icon" onclick="togglePasswordVisibility('idpass', 'eye')"></i>
+            </div>
+            <div class="w3-container w3-margin-bottom">
+                <input class="w3-check" type="checkbox" id="idremember" onclick="rememberMe()">
+                <label for="idremember">Remember Me</label>
+            </div>
+            <button class="w3-button w3-block w3-pastel-pink" type="submit">Login</button>
+            <p class="w3-text-red" id="loginError"></p>
+        </form>
+        <p class="w3-text-black">Don't have an account? <a href="javascript:void(0)" onclick="showRegisterForm()">Register here</a></p>
+    </div>
+    <div id="register" style="display: none;" class="content">
+        <img class="logo" src="clinic.png" alt="Happy Health Clinic Logo">
+        <h2>REGISTER</h2>
+        <form name="registerForm" onsubmit="return validateForm()" action="register.php" method="post">
+            <input class="w3-input" type="text" name="name" placeholder="Name" required>
+            <input class="w3-input" type="email" name="email" placeholder="Email" required>
+            <div class="input-container w3-margin-bottom">
+                <input class="w3-input" type="password" name="password" id="regpass" placeholder="Password" required>
+                <i class="fa fa-eye eye-icon" onclick="togglePasswordVisibility('regpass', 'eye2')"></i>
+            </div>
+            <input class="w3-input" type="text" name="phone" placeholder="Phone Number" required>
+            <input class="w3-input" type="text" name="address" placeholder="Address" required>
+            <button class="w3-button w3-block w3-pastel-pink" type="submit">Register</button>
+        </form>
+        <p class="w3-text-blue">Already have an account? <a href="javascript:void(0)" onclick="showLoginForm()">Login here</a></p>
+    </div>
+</div>
+
+<footer class="w3-container w3-center w3-pastel-pink w3-padding-16">
+    <p>&copy; 2024 Blossom Women's Care. All rights reserved.</p>
+</footer>
+
+<script>
+    function showLoginForm() {
+        document.getElementById('login').style.display = 'block';
+        document.getElementById('register').style.display = 'none';
+    }
+
+    function showRegisterForm() {
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('register').style.display = 'block';
+    }
+
+    function rememberMe(){
+        var email = document.forms["loginForm"]["name"].value;
+        var pass = document.forms["loginForm"]["password"].value;
+        var rememberme = document.forms["loginForm"]["idremember"].checked;
+        if (rememberme){
+            localStorage.email = email;
+            localStorage.pass = pass;
+            localStorage.rememberme = rememberme;
+        }else{
+            localStorage.email = "";
+            localStorage.pass = "";
+            localStorage.rememberme = "";
+        }
+    }
+
+    function loadCookies(){
+        if(localStorage.rememberme == "true"){
+            document.getElementById("idname").value = localStorage.email;
+            document.getElementById("idpass").value = localStorage.pass;
+            document.getElementById("idremember").checked = true;
+        }else{
+            document.getElementById("idname").value = "";
+            document.getElementById("idpass").value = "";
+            document.getElementById("idremember").checked = false;
+        }
+    }
+
+    function togglePasswordVisibility(inputId, eyeIconId) {
+        var pass = document.getElementById(inputId);
+        var eye = document.getElementById(eyeIconId);
+        if (pass.type === "password") {
+            pass.type = "text";
+            eye.classList.remove("fa-eye");
+            eye.classList.add("fa-eye-slash");
+        } else {
+            pass.type = "password";
+            eye.classList.remove("fa-eye-slash");
+            eye.classList.add("fa-eye");
+        }
+    }
+</script>
+
+</body>
+</html>
